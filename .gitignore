@@ -47,3 +47,7 @@ ehthumbs.db
 # Logs and test caches
 *.log
 .pytest_cache/
+
+# Internal candidate prep notes
+submission/recording-script.md
+recording-script.md

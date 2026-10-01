@@ -39,8 +39,7 @@ kestrel-fraud/
 ├── submission/
 │   ├── predictions.csv              # Authoritative predictions for test claims (2,252 rows)
 │   ├── memo-to-ritu.md              # Executive briefing for Head of D2C Operations
-│   ├── submission-form.md           # Completed technical and operational submission form
-│   └── recording-script.md          # 3-minute presentation and walkthrough script
+│   └── submission-form.md           # Completed technical and operational submission form
 │
 ├── model_metadata.json              # Lightweight production model & run metadata
 ├── requirements.txt                 # Pinned dependencies (pandas, numpy, scikit-learn, pytest)
