@@ -162,10 +162,19 @@ Scores an incoming warranty claim and returns human-interpretable review signals
 
 ---
 
-## Data Hygiene & Security Safeguards
+## Data Hygiene, Features & Security Safeguards
 
-- **Strictly As-Of Features:** All historical partner rates, serial counts, and trend features are calculated strictly using reference rows timestamped prior to each claim, preventing future-period data leakage.
-- **Undecided Outcomes:** 215 unresolved claims with blank investigation outcomes are excluded from training rather than falsely assumed genuine.
+- **Strictly As-Of Features:** All historical partner rates, SKU rates, fault description rates, serial counts, and temporal interaction features are calculated strictly using reference rows timestamped prior to each claim (`pd.merge_asof(..., direction="backward", allow_exact_matches=False)`), preventing future-period data leakage.
+- **180-Day Recency-Weighted Partner Trend (`recent_partner_rate`):** Evaluates short-term changes in partner fraud behavior via exponential time-decay weighting ($age > 0$), fully retained as part of the validated feature pipeline.
+- **Undecided Outcomes:** 215 unresolved claims with blank investigation outcomes are excluded from supervised training rather than falsely assumed genuine.
 - **Untrusted Free Text:** Injected prompt instructions within `claim_description` are treated strictly as untrusted data values and never executed.
 - **Graceful Fallbacks:** Claims referencing unseen partner IDs or SKUs fall back to smoothed population priors and return explicit explanatory signals. Missing required fields produce structured 400 Bad Request responses rather than server crashes.
+
+---
+
+## Operational Limitations & Governance
+
+- **Decision Support, Not Autonomous Denial:** The model outputs an uncalibrated relative risk score to rank the constrained 40-claim monthly review queue. It is never used to automatically deny warranty claims or bypass human review.
+- **Temporal Performance Variation:** Fraud mechanisms and partner cohort distributions evolve over time. While random 80/20 splits show optimistic AUC (~0.88), chronological holdout AUC varies across rolling operational windows (0.496–0.732, mean 0.592).
+- **Continuous Monitoring:** In production deployment, rolling precision@40 and net financial value should be monitored monthly against simple baselines (such as sorting by claim amount).
 

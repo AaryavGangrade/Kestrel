@@ -1,34 +1,29 @@
-# Memo: warranty claim review pilot
+# Memo: Warranty Claim Review Pilot
 
 **To:** Ritu Deshpande, Head of D2C Operations  
-**Subject:** A 40-claim-a-month fraud review queue for Kestrel Home
+**Subject:** A 40-Claim-a-Month Fraud Review Queue for Kestrel Home
 
-I built a small claim-ranking service that scores incoming warranty claims and gives the investigation desk the reasons behind the ranking. It is designed to prioritize a human review queue of 40 claims per month, not to auto-reject customers.
+I built a warranty-claim fraud risk scoring and ranking service designed to prioritize the investigation desk's approximately 40-claim monthly review capacity. It provides human reviewers with risk scores and operational review signals; it is decision support to guide human review, not an automatic rejection system.
 
-### Bottom line on the latest window
-The business outcome is avoided fraudulent payout while protecting genuine customer goodwill. On the latest chronological holdout (2,363 claims, 48 frauds):
-- **Model queue:** 5 frauds in top 40 (12.5% precision, 10.42% recall), avoiding Rs 45,338 gross payout. After Rs 380 goodwill for 35 genuine holds and Rs 260 contact cost per review, estimated net value was **Rs 21,638**.
-- **Claim-amount heuristic:** Selecting the 40 largest claims caught 4 frauds (10.0% precision, 8.33% recall) and produced **Rs 35,161** net value (Rs 59,241 gross saved).
-- **Random queue baseline:** Expected 0.81 frauds (2.03% precision) with an expected net loss of **Rs -23,037**.
+### Validation Findings & Economic Value
 
-**Explicit business conclusion:** The model demonstrates incremental fraud capture over the simple amount heuristic on the latest window (+1 additional fraud caught, a 25% increase), but has **not yet demonstrated superior economic value** on this single window (Rs 21,638 vs Rs 35,161 net value). The amount heuristic achieved higher net value here because its 4 caught frauds averaged Rs 14,810 in claims, whereas the model's 5 caught frauds averaged Rs 9,068.
+In our primary chronological validation (evaluating 2,363 claims submitted after 28 March 2026, containing 48 true fraud cases):
+- **Model Review Queue (Top 40):** Captured **5 fraud cases** (12.5% precision@40, 10.42% recall@40), avoiding an estimated **₹45,338** in gross fraudulent payouts.
+- **Net Economic Value:** After factoring in ₹13,300 in customer goodwill penalty for holding 35 genuine claims (₹380/claim) and ₹10,400 in review overhead (40 claims × ₹260), estimated net economic value was **₹21,638**.
+- **Claim-Amount Benchmark:** Sorting by claim amount alone captured 4 frauds (10.0% precision, 8.33% recall) and produced **₹35,161** net value on this specific window, because those 4 claims happened to have larger individual payouts.
+- **Random Selection Baseline:** An unguided 40-claim sample would be expected to capture only ~0.8 fraud cases (2.03% precision) with an expected net loss of approximately -₹23,037.
 
-### Why retain the model for shadow-mode testing?
-1. **Multi-window consistency:** Across earlier chronological windows, the model substantially outperformed the amount heuristic on both fraud capture (19 vs 3, 16 vs 4, 12 vs 4) and economic net value (Rs 123,950 vs Rs 32,635; Rs 94,421 vs Rs 48,299; Rs 80,747 vs Rs 48,299). Across all five windows, the model averaged Rs 71,038 net value (and 12.0 frauds caught) vs Rs 47,899 net value (and 3.8 frauds caught) for the amount heuristic.
-2. **Gaming resistance:** A pure claim-amount heuristic is easily learned and gamed by dishonest partners who split claims or keep amounts just below review thresholds. The model evaluates structural operational patterns (partner history, serial reuse, policy inspection gaps, claim-to-list-price ratios) across all claim sizes.
-3. **Zero operational risk:** Shadow mode tests whether the model's multi-signal ranking adds real-world lift without disrupting customer payouts.
+### Honest Multi-Period Perspective
 
-### Recommendation to optimize the business objective
-To directly satisfy Farhan Sheikh's objective ("how much fraud we stop per claim we check, in rupees — not a percentage"), I recommend transitioning queue prioritization from pure fraud probability $P(\text{fraud})$ to **Expected Loss Avoided**:
-$$\text{Expected Net Value} = P(\text{fraud}) \times \text{claim\_amount\_inr} - (1 - P(\text{fraud})) \times \text{goodwill\_cost}$$
-This pairs the model's risk assessment with the financial exposure of the claim.
+Results vary across time. On the latest single window, the model captured incremental fraud (+1 case, a 25% gain in detection), but did not beat the claim-amount heuristic on net rupee recovery. Across five sequential historical chronological windows, however, the model averaged **₹71,038** in net value (and 12.0 fraud cases caught) compared to **₹47,899** (and 3.8 fraud cases caught) for the claim-amount heuristic.
 
-### Operational KPIs and next steps
-The board's requested accuracy was 97%: the chronological check achieved **97.84%** (five-window range: 97.84%–98.48%, mean 98.25%). However, accuracy is misleading because only 1.23% of labelled claims are fraud. Chronological ROC-AUC ranged from 0.496 to 0.732 across five rolling cutoffs (mean 0.592; 0.523 in the primary holdout and 0.496 in the latest window).
+Furthermore, a pure claim-amount heuristic is vulnerable to adversarial gaming: dishonest partners quickly learn monetary cutoffs and submit multiple smaller claims just below the threshold. The model evaluates multi-signal risk across all claim amounts.
 
-Next week in shadow mode:
-1. Run the service silently for one week to rank the monthly queue alongside the existing process; do not alter payouts.
-2. Record desk outcomes, amounts recovered, partner feedback, and signal accuracy.
-3. If rolling top-40 net value fails to beat the simple amount baseline, adjust ranking weights or suspend automated queue sorting.
+### Operational Recommendation: Shadow-Mode Rollout
 
-The service explicitly flags missing partner/SKU keys, missing serials, repeat claims, prior customer claims, high claim-to-list-price amounts, newer-partner context, and the post-1-May-2026 inspection rule. Undecided cases (blank outcomes) remain excluded from training rather than assumed genuine.
+Because fraud patterns shift over time, I recommend a controlled shadow-mode pilot:
+1. **Silent Parallel Execution:** Run the scoring service silently alongside current desk operations for one month without altering customer payouts.
+2. **Reviewer Decision Support:** Provide investigation staff with the continuous risk score along with the operational review signals (e.g., partner onboarding history, list-price ratio, inspection sign-off gaps, customer claim counts, and uncataloged partner/SKU fallbacks).
+3. **Monitor Realized Net Value:** Track actual fraud capture and net recovery each month. If realized performance falls below simple baselines, re-evaluate ranking criteria or suspend queue sorting.
+
+To directly maximize rupees saved per claim checked, future queue sorting can rank claims by **Expected Loss Avoided** ($\text{Score} = P(\text{fraud}) \times \text{claim\_amount} - (1 - P(\text{fraud})) \times \text{goodwill\_cost}$), pairing risk likelihood with financial exposure.

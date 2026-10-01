@@ -2,35 +2,71 @@
 
 **What did you build, and what business outcome does it move? State the number and the money.**
 
-I built `predictions.csv` plus a local one-claim scoring service. It ranks claims for the investigation desk's 40-claim monthly capacity and returns employee-readable relevant signals. In the primary chronological holdout, the top 40 contained 5 fraud claims (12.5% precision, 10.42% recall) and avoided Rs 45,338 gross payout; after Rs 380 goodwill per genuine hold and Rs 260 per review, estimated net value was Rs 21,638. On this same latest window, a simple highest-claim-amount heuristic captured 4 frauds (10.0% precision) and delivered Rs 35,161 net value. Therefore, the model demonstrates incremental fraud capture over the simple amount heuristic (+1 fraud case, +25% capture), but has not yet demonstrated superior economic value on this single window. Across five historical validation windows, however, the model averaged Rs 71,038 net value (ranging from Rs 21,638 to Rs 123,950) versus Rs 47,899 for the amount heuristic; this is an empirical historical range, not a monthly profit forecast.
+I built a warranty-claim fraud risk scoring service and predictions.csv. The service ranks claims so the investigation desk can focus on its approximately 40-claim monthly review capacity and provides employee-readable review signals.
+
+On the primary chronological holdout, the top 40 claims contained 5 fraud cases, giving 12.5% precision@40 and 10.42% recall@40. The estimated gross payout avoided was ₹45,338; after ₹13,300 estimated goodwill cost for 35 genuine holds and ₹10,400 for 40 reviews, estimated net value was ₹21,638.
+
+Across five historical chronological windows, estimated net value averaged approximately ₹71,038. These are historical validation results, not forecasts.
 
 **What score do you expect predictions.csv to get on the hidden outcomes, on which metric, and why that metric? Say how you estimated it.**
 
-I expect hidden ROC-AUC around 0.50-0.65 if hidden outcomes follow the observed chronological drift, with 97-99% accuracy at a fixed 0.5 threshold because fraud is rare (1.23% base rate). ROC-AUC is useful for comparing continuous ranking, but the operational business metric is top-40 queue capture. On the latest holdout, random selection would capture 0.81 frauds on average (2.03% precision, 1.69% recall; expected net loss Rs -23,037), while the model captured 5/48 (12.5% precision, 10.42% recall; Rs 21,638 net value) and the claim-amount heuristic captured 4/48 (10.0% precision, 8.33% recall; Rs 35,161 net value). ROC-AUC is not a probability estimate. I compared logistic regression, Random Forest, Extra Trees, Gradient Boosting, and HistGradientBoosting on chronological windows after fixing timestamp leakage. Random Forest with enhanced as-of features was selected for ranking stability, multi-signal coverage, and clean local execution. The exact authoritative rerun in `evidence.json` reported primary holdout AUC 0.523, five-window mean AUC 0.592 (five-window range: 0.496-0.732; latest window 0.496), and accuracy 97.84-98.48% (mean 98.25%). Repeated random 80/20 splits gave AUC 0.790-0.941 (mean 0.879), which I treat as optimistic evidence only.
+I expect hidden ROC-AUC around 0.50–0.65, with substantial uncertainty because performance varies across time. Across five chronological windows, AUC ranged from approximately 0.496 to 0.732, with a mean around 0.592; the primary chronological holdout was approximately 0.523.
+
+I did not repeatedly optimize against these same windows solely to increase AUC, because that could overfit the validation periods. ROC-AUC is used for the continuous risk ranking, while precision@40 is the operational metric for the approximately 40-claim review workflow. Random splits were materially more optimistic and were therefore not treated as the main estimate of future performance.
 
 **How do you know it works? Sample size, how you checked, error rate, and the kind of case it gets wrong.**
 
-The primary check has 2,363 later labelled claims, with 48 frauds. Accuracy was 97.84%; at a 0.5 cutoff the model found 5 of 48 frauds and produced 8 false positives. The product uses ranking/top-40 review because that is the operational constraint. The latest top-40 precision was 12.5% (5/40) and recall@40 was 10.42% (5/48); rolling top-40 precision ranged 12.5-47.5% (mean 30.0%). Historical top-40 net value ranged from Rs 21,638 to Rs 123,950 (mean Rs 71,038). On the latest window, the model captured incremental fraud over the amount heuristic (5 vs 4) but achieved lower net value (Rs 21,638 vs Rs 35,161) because the amount heuristic's 4 frauds had larger payouts. Across all five windows, the model averaged 12.0 frauds caught vs 3.8 for the amount heuristic. It gets wrong cases from shifting partner cohorts and rare partners with little history. Earlier labelled history had 1.03% fraud prevalence, versus 2.03% in the latest window; mean claim amount fell from Rs 2,691 to Rs 2,321 and unique partners rose from 349 to 365. I tested prediction shape, duplicate IDs, API health, ordinary scoring, unknown partner/SKU and missing serial fallback, incomplete requests, and batch/online score parity.
+On the primary chronological holdout there were 2,363 later-labelled claims and 48 fraud cases. At the default 0.5 threshold, accuracy was 97.84%, with 5 true positives, 8 false positives, 2,307 true negatives and 43 false negatives.
+
+Because the operational workflow is a ranked review queue rather than automatic rejection, I also evaluated the top 40 claims: 5 frauds were found, giving 12.5% precision@40 and 10.42% recall@40. Random selection would be expected to find only about 0.8 fraud cases in 40 claims.
+
+I also tested multiple chronological windows, unseen partners/SKUs, missing serials, duplicate IDs, batch-vs-single scoring consistency, API health, schema validity and prediction generation.
+
+The main limitation is temporal variation: fraud behaviour and partner patterns change over time, and individual chronological windows contain relatively few fraud cases.
 
 **Did you change, narrow, or push back on the client's ask? What, when, and why?**
 
-Yes. I narrowed “flag fraud” to “prioritise the 40 claims the desk can review” and rejected automatic denial. The API returns a prioritization score and requires monthly batch ranking rather than emitting a misleading fixed review boolean. A score of 0.30 does not mean a 30% probability of fraud. I made this decision after reading the policy and email thread: genuine holds cost Rs 380 goodwill, the desk has capacity for 40, and accuracy is misleading at 1.23% prevalence. I also did not assume newer partners are fraudulent; partner age is only one signal.
+Yes. I changed the framing from automatic fraud flagging/rejection to ranking claims for a constrained human review queue. Accuracy alone is not sufficient for this workflow because fraud is rare and a high accuracy can coexist with many missed fraud cases.
+
+The final system produces a continuous risk score and employee-readable review signals rather than automatically denying claims. I also did not assume that newer partners are fraudulent; partner age is only one feature and the data is allowed to determine its effect.
 
 **What is wrong with what you are handing us, or with the data we handed you?**
 
-Training includes 215 blank investigation outcomes; they are excluded rather than silently treated as genuine. Claim IDs repeat because partners resubmit; serials are messy and repeat across train/test. Four claim descriptions contain instruction-like text; they are untrusted data and not used as instructions. Fourteen test-period partners have no labelled history and use a fixed 1% smoothing prior. Target-history rates, counts, and trend features now use only labelled rows strictly earlier than each claim timestamp. Batch and one-record scores were checked and matched within 0.000001. Chronological AUC is unstable (0.496-0.732, latest repeated window 0.496); the model is not safe for autonomous payout decisions.
+215 claims with blank investigation outcomes were excluded from supervised training.
+
+Claim IDs and serials can repeat, so repeated records are not treated as independent evidence. Test-period partners/SKUs without labelled history use fallback/smoothing behaviour. Missing serials are handled explicitly.
+
+Some claim descriptions contain instruction-like text; these are treated as untrusted data rather than instructions to the model.
+
+Historical target/rate features are constructed strictly as-of the claim timestamp, so future labels are not available to the claim being scored.
+
+The main remaining limitation is temporal variation in model performance.
 
 **What did you deliberately leave out, and why that rather than something else?**
 
-I left out an LLM, paid APIs, automatic rejection, and free-text instruction following. A paid model would add unavailable operational cost and reproducibility risk; the Random Forest is easier to audit. I tested recency-weighted partner history but discarded it because its apparent gain was not stable in the final end-to-end rerun. I also did not turn `claim_id` into a memorised label because repeated IDs are resubmissions, not independent evidence.
+I deliberately left out an LLM, paid inference APIs, automatic warranty rejection, and free-text instruction following.
+
+The final prediction pipeline is deterministic/local, which avoids per-claim API cost and makes the scoring process easier to reproduce and audit.
+
+I did not use claim_id as a memorised fraud label; repeated IDs are treated as repeated/resubmitted claims rather than independent evidence.
+
+I retained the strictly-as-of 180-day recency-weighted partner history because it is leakage-safe and is part of the final validated feature set.
 
 **Anything you built or found that nobody asked for?**
 
-The service returns explicit employee reasons and a missing-key fallback. I also produced repeated chronological and random split evidence, a money calculation using the policy costs, and a short recording script.
+I added employee-readable review signals and explicit fallback handling for unseen partners/SKUs and missing serials.
+
+I also evaluated multiple chronological windows, compared against random selection and a claim-amount heuristic, and included rupee-based evaluation using the policy costs.
+
+The final system also checks batch-vs-single scoring consistency and provides a simple service interface for one-record review.
 
 **What did you use AI for? Which tools and models, where they helped, where they wasted your time, what you threw away. Link your three-minute screen recording here.**
 
-AI assistance was used to inspect the pack, draft and debug the deterministic Python model/service, and review the submission wording. No model API or paid inference call is used inside the product; incremental prediction cost is Rs 0. I discarded prompt-injection text in the data, random-split-only confidence, and automatic-denial logic. **Screen recording:** supplied separately by the candidate.
+I used ChatGPT for code review, debugging, feature ideas, validation review and submission documentation. I did not use an LLM inside the final prediction pipeline.
+
+AI assistance was particularly useful for reviewing leakage risks, validation design and implementation issues. I considered/discussed LLM-based claim interpretation but did not include it in the final pipeline because it added complexity and cost without being necessary for the final workflow.
+
+The final prediction service runs locally using the Random Forest model and does not make paid AI API calls.
 
 **Your Public Google Drive Link**
 
@@ -38,9 +74,25 @@ The screen recording is supplied separately by the candidate.
 
 **Someone picks this up on Monday and you are unreachable. The three things they need to know.**
 
-1. Run `python src/model.py` to regenerate predictions/evidence, then `python src/service.py` and open `http://127.0.0.1:8000/`. You can also execute the automated test suite with `pytest tests/`.
-2. Use the score only to rank the 40 monthly investigations; never auto-deny from it. Watch rolling top-40 precision and net value.
-3. Blank outcomes are undecided, unknown partner/SKU keys use fallback rates, and the chronological AUC drift warning is real.
+Run:
+
+python src/model.py
+
+then:
+
+python src/service.py
+
+and open:
+
+http://127.0.0.1:8000/
+
+Run:
+
+pytest tests/
+
+The intended workflow is to use the risk score to rank the monthly review queue rather than treating it as a calibrated probability or automatic rejection decision.
+
+Known limitations include 215 blank outcomes excluded from supervised training, fallback/smoothing for unseen entities, and temporal variation in chronological performance. Future deployment should monitor top-40 precision and estimated net value over time.
 
 **Honest hours spent.**
 
@@ -48,4 +100,8 @@ The screen recording is supplied separately by the candidate.
 
 **What does one prediction cost, and what would a month cost at Kestrel's volume (about 750 warranty claims a month)? Show the arithmetic.**
 
-No paid calls. One prediction uses local deterministic Python only: Rs 0 per claim × 750 claims/month = Rs 0/month in API cost. Human review remains separately capacity-limited at 40 claims/month; the model does not claim that review labour is free.
+The final prediction pipeline uses a local Random Forest and no paid inference API.
+
+Paid inference cost per prediction: ₹0.
+
+At 750 claims/month, paid inference cost would therefore be approximately ₹0/month, excluding hosting and human investigation costs.
