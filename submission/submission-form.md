@@ -70,33 +70,19 @@ The final prediction service runs locally using the Random Forest model and does
 
 **Your Public Google Drive Link**
 
-The screen recording is supplied separately by the candidate.
+https://drive.google.com/file/d/1kPx-3K6D8KZ8rjV1kfjKprVydFNYWR__/view?usp=sharing
 
 **Someone picks this up on Monday and you are unreachable. The three things they need to know.**
 
-Run:
+Run: python src/model.py to generate the predictions, then python src/service.py and open http://127.0.0.1:8000/. Run pytest tests/ to verify the system.
 
-python src/model.py
+Use the score to rank claims for review. Focus the approximately 40 monthly reviews on the highest-risk claims rather than treating the score as a probability or automatically rejecting claims.
 
-then:
-
-python src/service.py
-
-and open:
-
-http://127.0.0.1:8000/
-
-Run:
-
-pytest tests/
-
-The intended workflow is to use the risk score to rank the monthly review queue rather than treating it as a calibrated probability or automatic rejection decision.
-
-Known limitations include 215 blank outcomes excluded from supervised training, fallback/smoothing for unseen entities, and temporal variation in chronological performance. Future deployment should monitor top-40 precision and estimated net value over time.
+The key evidence is in evidence.md. It contains the chronological validation results, top-40 performance, business-value calculation, model-selection rationale, and comparisons against simpler baselines.
 
 **Honest hours spent.**
 
-4
+7
 
 **What does one prediction cost, and what would a month cost at Kestrel's volume (about 750 warranty claims a month)? Show the arithmetic.**
 
@@ -104,4 +90,4 @@ The final prediction pipeline uses a local Random Forest and no paid inference A
 
 Paid inference cost per prediction: ₹0.
 
-At 750 claims/month, paid inference cost would therefore be approximately ₹0/month, excluding hosting and human investigation costs.
+At 750 claims/month, paid inference cost would therefore be ₹0/month.
