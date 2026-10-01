@@ -1,0 +1,100 @@
+{
+  "summary": [
+    {
+      "model": "baseline",
+      "accuracy": 0.9825609843344566,
+      "auc": 0.5568185989478136,
+      "precision_at_40": 0.3,
+      "net_value_top_40": 71038.2
+    },
+    {
+      "model": "enhanced",
+      "accuracy": 0.9827113100062522,
+      "auc": 0.5681883501731969,
+      "precision_at_40": 0.3,
+      "net_value_top_40": 71038.2
+    }
+  ],
+  "windows": [
+    {
+      "quantile": 0.6,
+      "model": "baseline",
+      "accuracy": 0.9856115107913669,
+      "auc": 0.6284788677166677,
+      "precision_at_40": 0.475,
+      "net_value_top_40": 123950.0
+    },
+    {
+      "quantile": 0.6,
+      "model": "enhanced",
+      "accuracy": 0.9853999153618281,
+      "auc": 0.7013114121487678,
+      "precision_at_40": 0.475,
+      "net_value_top_40": 123950.0
+    },
+    {
+      "quantile": 0.65,
+      "model": "baseline",
+      "accuracy": 0.9845223700120919,
+      "auc": 0.6486817199021091,
+      "precision_at_40": 0.4,
+      "net_value_top_40": 94421.0
+    },
+    {
+      "quantile": 0.65,
+      "model": "enhanced",
+      "accuracy": 0.985006045949214,
+      "auc": 0.551998606084126,
+      "precision_at_40": 0.4,
+      "net_value_top_40": 94421.0
+    },
+    {
+      "quantile": 0.7,
+      "model": "baseline",
+      "accuracy": 0.9836343115124153,
+      "auc": 0.5746063070014046,
+      "precision_at_40": 0.3,
+      "net_value_top_40": 80747.0
+    },
+    {
+      "quantile": 0.7,
+      "model": "enhanced",
+      "accuracy": 0.983352144469526,
+      "auc": 0.5928244999703246,
+      "precision_at_40": 0.3,
+      "net_value_top_40": 80747.0
+    },
+    {
+      "quantile": 0.75,
+      "model": "baseline",
+      "accuracy": 0.981042654028436,
+      "auc": 0.508617496807152,
+      "precision_at_40": 0.2,
+      "net_value_top_40": 34435.0
+    },
+    {
+      "quantile": 0.75,
+      "model": "enhanced",
+      "accuracy": 0.9813811780636426,
+      "auc": 0.5315197956577267,
+      "precision_at_40": 0.2,
+      "net_value_top_40": 34435.0
+    },
+    {
+      "quantile": 0.8,
+      "model": "baseline",
+      "accuracy": 0.9779940753279729,
+      "auc": 0.42370860331173504,
+      "precision_at_40": 0.125,
+      "net_value_top_40": 21638.0
+    },
+    {
+      "quantile": 0.8,
+      "model": "enhanced",
+      "accuracy": 0.9784172661870504,
+      "auc": 0.4632874370050396,
+      "precision_at_40": 0.125,
+      "net_value_top_40": 21638.0
+    }
+  ]
+}

@@ -1,0 +1,275 @@
+{
+  "cutoff": "2026-03-28 16:23:12",
+  "time_holdout": {
+    "n": 2363,
+    "positive_rate": 0.02031316123571731,
+    "accuracy": 0.9784172661870504,
+    "precision_at_0_5": 0.38461538461538464,
+    "recall_at_0_5": 0.10416666666666667,
+    "auc": 0.5226016918646508,
+    "review_n": 40,
+    "fraud_in_top_40": 5,
+    "precision_at_40": 0.125,
+    "rupees_saved_gross_top_40": 45338.0,
+    "net_value_top_40": 21638.0,
+    "confusion": {
+      "tp": 5,
+      "fp": 8,
+      "tn": 2307,
+      "fn": 43
+    }
+  },
+  "repeated_time_windows": [
+    {
+      "quantile": 0.6,
+      "cutoff": "2025-12-25 18:04:12",
+      "n": 4726,
+      "positive_rate": 0.014600084638171815,
+      "accuracy": 0.984765129073212,
+      "precision_at_0_5": 0.4634146341463415,
+      "recall_at_0_5": 0.2753623188405797,
+      "auc": 0.7324317763815108,
+      "review_n": 40,
+      "fraud_in_top_40": 19,
+      "precision_at_40": 0.475,
+      "rupees_saved_gross_top_40": 142330.0,
+      "net_value_top_40": 123950.0,
+      "confusion": {
+        "tp": 19,
+        "fp": 22,
+        "tn": 4635,
+        "fn": 50
+      }
+    },
+    {
+      "quantile": 0.65,
+      "cutoff": "2026-01-18 08:19:45",
+      "n": 4135,
+      "positive_rate": 0.014993954050785973,
+      "accuracy": 0.9842805320435308,
+      "precision_at_0_5": 0.45714285714285713,
+      "recall_at_0_5": 0.25806451612903225,
+      "auc": 0.609499615881137,
+      "review_n": 40,
+      "fraud_in_top_40": 16,
+      "precision_at_40": 0.4,
+      "rupees_saved_gross_top_40": 113941.0,
+      "net_value_top_40": 94421.0,
+      "confusion": {
+        "tp": 16,
+        "fp": 19,
+        "tn": 4054,
+        "fn": 46
+      }
+    },
+    {
+      "quantile": 0.7,
+      "cutoff": "2026-02-09 22:05:42",
+      "n": 3544,
+      "positive_rate": 0.01636568848758465,
+      "accuracy": 0.9836343115124153,
+      "precision_at_0_5": 0.5,
+      "recall_at_0_5": 0.20689655172413793,
+      "auc": 0.5477377490256593,
+      "review_n": 40,
+      "fraud_in_top_40": 12,
+      "precision_at_40": 0.3,
+      "rupees_saved_gross_top_40": 101787.0,
+      "net_value_top_40": 80747.0,
+      "confusion": {
+        "tp": 12,
+        "fp": 12,
+        "tn": 3474,
+        "fn": 46
+      }
+    },
+    {
+      "quantile": 0.75,
+      "cutoff": "2026-03-04 20:21:15",
+      "n": 2954,
+      "positive_rate": 0.01828029790115098,
+      "accuracy": 0.9813811780636426,
+      "precision_at_0_5": 0.47058823529411764,
+      "recall_at_0_5": 0.14814814814814814,
+      "auc": 0.5758492975734355,
+      "review_n": 40,
+      "fraud_in_top_40": 8,
+      "precision_at_40": 0.2,
+      "rupees_saved_gross_top_40": 56995.0,
+      "net_value_top_40": 34435.0,
+      "confusion": {
+        "tp": 8,
+        "fp": 9,
+        "tn": 2891,
+        "fn": 46
+      }
+    },
+    {
+      "quantile": 0.8,
+      "cutoff": "2026-03-28 16:23:12",
+      "n": 2363,
+      "positive_rate": 0.02031316123571731,
+      "accuracy": 0.9784172661870504,
+      "precision_at_0_5": 0.38461538461538464,
+      "recall_at_0_5": 0.10416666666666667,
+      "auc": 0.49578833693304536,
+      "review_n": 40,
+      "fraud_in_top_40": 5,
+      "precision_at_40": 0.125,
+      "rupees_saved_gross_top_40": 45338.0,
+      "net_value_top_40": 21638.0,
+      "confusion": {
+        "tp": 5,
+        "fp": 8,
+        "tn": 2307,
+        "fn": 43
+      }
+    }
+  ],
+  "spread": {
+    "accuracy": {
+      "min": 0.9784172661870504,
+      "max": 0.984765129073212,
+      "mean": 0.9824956833759704
+    },
+    "auc": {
+      "min": 0.49578833693304536,
+      "max": 0.7324317763815108,
+      "mean": 0.5922613551589576
+    },
+    "precision_at_40": {
+      "min": 0.125,
+      "max": 0.475,
+      "mean": 0.3
+    },
+    "net_value_top_40": {
+      "min": 21638.0,
+      "max": 123950.0,
+      "mean": 71038.2
+    }
+  },
+  "repeated_random_splits": [
+    {
+      "seed": 0,
+      "n": 2390,
+      "positive_rate": 0.0100418410041841,
+      "accuracy": 0.994142259414226,
+      "precision_at_0_5": 0.6666666666666666,
+      "recall_at_0_5": 0.8333333333333334,
+      "auc": 0.9407931811777965,
+      "review_n": 40,
+      "fraud_in_top_40": 21,
+      "precision_at_40": 0.525,
+      "rupees_saved_gross_top_40": 144717.0,
+      "net_value_top_40": 127097.0,
+      "confusion": {
+        "tp": 20,
+        "fp": 10,
+        "tn": 2356,
+        "fn": 4
+      }
+    },
+    {
+      "seed": 1,
+      "n": 2376,
+      "positive_rate": 0.013468013468013467,
+      "accuracy": 0.9886363636363636,
+      "precision_at_0_5": 0.5862068965517241,
+      "recall_at_0_5": 0.53125,
+      "auc": 0.7900757252559727,
+      "review_n": 40,
+      "fraud_in_top_40": 18,
+      "precision_at_40": 0.45,
+      "rupees_saved_gross_top_40": 96274.0,
+      "net_value_top_40": 77514.0,
+      "confusion": {
+        "tp": 17,
+        "fp": 12,
+        "tn": 2332,
+        "fn": 15
+      }
+    },
+    {
+      "seed": 2,
+      "n": 2433,
+      "positive_rate": 0.010275380189066995,
+      "accuracy": 0.9913686806411838,
+      "precision_at_0_5": 0.5714285714285714,
+      "recall_at_0_5": 0.64,
+      "auc": 0.8716362126245847,
+      "review_n": 40,
+      "fraud_in_top_40": 16,
+      "precision_at_40": 0.4,
+      "rupees_saved_gross_top_40": 56691.0,
+      "net_value_top_40": 37171.0,
+      "confusion": {
+        "tp": 16,
+        "fp": 12,
+        "tn": 2396,
+        "fn": 9
+      }
+    },
+    {
+      "seed": 3,
+      "n": 2351,
+      "positive_rate": 0.011484474691620587,
+      "accuracy": 0.9906422798809017,
+      "precision_at_0_5": 0.5925925925925926,
+      "recall_at_0_5": 0.5925925925925926,
+      "auc": 0.8527283738127112,
+      "review_n": 40,
+      "fraud_in_top_40": 16,
+      "precision_at_40": 0.4,
+      "rupees_saved_gross_top_40": 83172.0,
+      "net_value_top_40": 63652.0,
+      "confusion": {
+        "tp": 16,
+        "fp": 11,
+        "tn": 2313,
+        "fn": 11
+      }
+    },
+    {
+      "seed": 4,
+      "n": 2380,
+      "positive_rate": 0.012184873949579832,
+      "accuracy": 0.9920168067226891,
+      "precision_at_0_5": 0.6470588235294118,
+      "recall_at_0_5": 0.7586206896551724,
+      "auc": 0.9411842356150721,
+      "review_n": 40,
+      "fraud_in_top_40": 22,
+      "precision_at_40": 0.55,
+      "rupees_saved_gross_top_40": 82854.0,
+      "net_value_top_40": 65614.0,
+      "confusion": {
+        "tp": 22,
+        "fp": 12,
+        "tn": 2339,
+        "fn": 7
+      }
+    }
+  ],
+  "random_spread": {
+    "accuracy": {
+      "min": 0.9886363636363636,
+      "max": 0.994142259414226,
+      "mean": 0.9913612780590728
+    },
+    "auc": {
+      "min": 0.7900757252559727,
+      "max": 0.9411842356150721,
+      "mean": 0.8792835456972276
+    },
+    "precision_at_40": {
+      "min": 0.4,
+      "max": 0.55,
+      "mean": 0.465
+    },
+    "net_value_top_40": {
+      "min": 37171.0,
+      "max": 127097.0,
+      "mean": 74209.6
+    }
+  }
+}

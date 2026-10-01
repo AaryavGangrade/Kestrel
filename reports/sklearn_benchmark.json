@@ -1,0 +1,296 @@
+{
+  "runs": [
+    {
+      "quantile": 0.6,
+      "cutoff": "2025-12-25 18:04:12",
+      "model": "sk_random_forest",
+      "seconds": 1.64,
+      "accuracy": 0.984765129073212,
+      "auc": 0.7324317763815108,
+      "precision_at_40": 0.475,
+      "net_value_top_40": 123950.0
+    },
+    {
+      "quantile": 0.6,
+      "cutoff": "2025-12-25 18:04:12",
+      "model": "sk_extra_trees",
+      "seconds": 1.49,
+      "accuracy": 0.9807448159119763,
+      "auc": 0.6066634923895149,
+      "precision_at_40": 0.475,
+      "net_value_top_40": 123950.0
+    },
+    {
+      "quantile": 0.6,
+      "cutoff": "2025-12-25 18:04:12",
+      "model": "sk_hist_gradient_boosting",
+      "seconds": 1.73,
+      "accuracy": 0.9875158696572154,
+      "auc": 0.6255162090417106,
+      "precision_at_40": 0.475,
+      "net_value_top_40": 123950.0
+    },
+    {
+      "quantile": 0.6,
+      "cutoff": "2025-12-25 18:04:12",
+      "model": "sk_gradient_boosting",
+      "seconds": 2.78,
+      "accuracy": 0.9875158696572154,
+      "auc": 0.5306208823868075,
+      "precision_at_40": 0.475,
+      "net_value_top_40": 123950.0
+    },
+    {
+      "quantile": 0.6,
+      "cutoff": "2025-12-25 18:04:12",
+      "model": "sk_logistic",
+      "seconds": 1.33,
+      "accuracy": 0.9418112568768514,
+      "auc": 0.6408523245356064,
+      "precision_at_40": 0.275,
+      "net_value_top_40": 61436.0
+    },
+    {
+      "quantile": 0.65,
+      "cutoff": "2026-01-18 08:19:45",
+      "model": "sk_random_forest",
+      "seconds": 1.69,
+      "accuracy": 0.9842805320435308,
+      "auc": 0.609499615881137,
+      "precision_at_40": 0.4,
+      "net_value_top_40": 94421.0
+    },
+    {
+      "quantile": 0.65,
+      "cutoff": "2026-01-18 08:19:45",
+      "model": "sk_extra_trees",
+      "seconds": 1.55,
+      "accuracy": 0.9818621523579202,
+      "auc": 0.5805679415188931,
+      "precision_at_40": 0.4,
+      "net_value_top_40": 94421.0
+    },
+    {
+      "quantile": 0.65,
+      "cutoff": "2026-01-18 08:19:45",
+      "model": "sk_hist_gradient_boosting",
+      "seconds": 1.81,
+      "accuracy": 0.9869407496977025,
+      "auc": 0.5614748580344202,
+      "precision_at_40": 0.4,
+      "net_value_top_40": 94421.0
+    },
+    {
+      "quantile": 0.65,
+      "cutoff": "2026-01-18 08:19:45",
+      "model": "sk_gradient_boosting",
+      "seconds": 3.02,
+      "accuracy": 0.9864570737605804,
+      "auc": 0.48742901721010906,
+      "precision_at_40": 0.4,
+      "net_value_top_40": 94421.0
+    },
+    {
+      "quantile": 0.65,
+      "cutoff": "2026-01-18 08:19:45",
+      "model": "sk_logistic",
+      "seconds": 1.82,
+      "accuracy": 0.8478839177750906,
+      "auc": 0.5667178825150677,
+      "precision_at_40": 0.25,
+      "net_value_top_40": 69196.0
+    },
+    {
+      "quantile": 0.7,
+      "cutoff": "2026-02-09 22:05:42",
+      "model": "sk_random_forest",
+      "seconds": 1.85,
+      "accuracy": 0.9836343115124153,
+      "auc": 0.5477377490256593,
+      "precision_at_40": 0.3,
+      "net_value_top_40": 80747.0
+    },
+    {
+      "quantile": 0.7,
+      "cutoff": "2026-02-09 22:05:42",
+      "model": "sk_extra_trees",
+      "seconds": 1.64,
+      "accuracy": 0.9825056433408578,
+      "auc": 0.5588833165173007,
+      "precision_at_40": 0.3,
+      "net_value_top_40": 80747.0
+    },
+    {
+      "quantile": 0.7,
+      "cutoff": "2026-02-09 22:05:42",
+      "model": "sk_hist_gradient_boosting",
+      "seconds": 1.77,
+      "accuracy": 0.9841986455981941,
+      "auc": 0.5358082576611867,
+      "precision_at_40": 0.3,
+      "net_value_top_40": 80747.0
+    },
+    {
+      "quantile": 0.7,
+      "cutoff": "2026-02-09 22:05:42",
+      "model": "sk_gradient_boosting",
+      "seconds": 3.2,
+      "accuracy": 0.9844808126410836,
+      "auc": 0.4812674342690961,
+      "precision_at_40": 0.3,
+      "net_value_top_40": 80747.0
+    },
+    {
+      "quantile": 0.7,
+      "cutoff": "2026-02-09 22:05:42",
+      "model": "sk_logistic",
+      "seconds": 1.9,
+      "accuracy": 0.9167607223476298,
+      "auc": 0.5878637703523454,
+      "precision_at_40": 0.225,
+      "net_value_top_40": 72019.0
+    },
+    {
+      "quantile": 0.75,
+      "cutoff": "2026-03-04 20:21:15",
+      "model": "sk_random_forest",
+      "seconds": 1.88,
+      "accuracy": 0.9813811780636426,
+      "auc": 0.5758492975734355,
+      "precision_at_40": 0.2,
+      "net_value_top_40": 34435.0
+    },
+    {
+      "quantile": 0.75,
+      "cutoff": "2026-03-04 20:21:15",
+      "model": "sk_extra_trees",
+      "seconds": 1.73,
+      "accuracy": 0.9807041299932295,
+      "auc": 0.5411174968071519,
+      "precision_at_40": 0.2,
+      "net_value_top_40": 34435.0
+    },
+    {
+      "quantile": 0.75,
+      "cutoff": "2026-03-04 20:21:15",
+      "model": "sk_hist_gradient_boosting",
+      "seconds": 1.82,
+      "accuracy": 0.9820582261340555,
+      "auc": 0.5161877394636015,
+      "precision_at_40": 0.2,
+      "net_value_top_40": 34435.0
+    },
+    {
+      "quantile": 0.75,
+      "cutoff": "2026-03-04 20:21:15",
+      "model": "sk_gradient_boosting",
+      "seconds": 3.35,
+      "accuracy": 0.9820582261340555,
+      "auc": 0.4793869731800766,
+      "precision_at_40": 0.2,
+      "net_value_top_40": 34435.0
+    },
+    {
+      "quantile": 0.75,
+      "cutoff": "2026-03-04 20:21:15",
+      "model": "sk_logistic",
+      "seconds": 1.95,
+      "accuracy": 0.9495599187542315,
+      "auc": 0.576800766283525,
+      "precision_at_40": 0.175,
+      "net_value_top_40": 32445.0
+    },
+    {
+      "quantile": 0.8,
+      "cutoff": "2026-03-28 16:23:12",
+      "model": "sk_random_forest",
+      "seconds": 2.0,
+      "accuracy": 0.9784172661870504,
+      "auc": 0.49578833693304536,
+      "precision_at_40": 0.125,
+      "net_value_top_40": 21638.0
+    },
+    {
+      "quantile": 0.8,
+      "cutoff": "2026-03-28 16:23:12",
+      "model": "sk_extra_trees",
+      "seconds": 1.89,
+      "accuracy": 0.9767245027507406,
+      "auc": 0.4736501079913607,
+      "precision_at_40": 0.125,
+      "net_value_top_40": 21638.0
+    },
+    {
+      "quantile": 0.8,
+      "cutoff": "2026-03-28 16:23:12",
+      "model": "sk_hist_gradient_boosting",
+      "seconds": 1.8,
+      "accuracy": 0.9792636479052053,
+      "auc": 0.377312814974802,
+      "precision_at_40": 0.125,
+      "net_value_top_40": 21638.0
+    },
+    {
+      "quantile": 0.8,
+      "cutoff": "2026-03-28 16:23:12",
+      "model": "sk_gradient_boosting",
+      "seconds": 3.33,
+      "accuracy": 0.9792636479052053,
+      "auc": 0.3386699064074874,
+      "precision_at_40": 0.125,
+      "net_value_top_40": 21638.0
+    },
+    {
+      "quantile": 0.8,
+      "cutoff": "2026-03-28 16:23:12",
+      "model": "sk_logistic",
+      "seconds": 1.96,
+      "accuracy": 0.8963182395260262,
+      "auc": 0.4693124550035997,
+      "precision_at_40": 0.125,
+      "net_value_top_40": 21638.0
+    }
+  ],
+  "summary": [
+    {
+      "model": "sk_random_forest",
+      "accuracy": 0.9824956833759704,
+      "auc": 0.5922613551589576,
+      "precision_at_40": 0.3,
+      "net_value_top_40": 71038.2,
+      "seconds": 1.8119999999999998
+    },
+    {
+      "model": "sk_extra_trees",
+      "accuracy": 0.9805082488709449,
+      "auc": 0.5521764710448442,
+      "precision_at_40": 0.3,
+      "net_value_top_40": 71038.2,
+      "seconds": 1.6600000000000001
+    },
+    {
+      "model": "sk_hist_gradient_boosting",
+      "accuracy": 0.9839954277984745,
+      "auc": 0.5232599758351443,
+      "precision_at_40": 0.3,
+      "net_value_top_40": 71038.2,
+      "seconds": 1.7860000000000003
+    },
+    {
+      "model": "sk_gradient_boosting",
+      "accuracy": 0.9839551260196279,
+      "auc": 0.4634748426907153,
+      "precision_at_40": 0.3,
+      "net_value_top_40": 71038.2,
+      "seconds": 3.136
+    },
+    {
+      "model": "sk_logistic",
+      "accuracy": 0.9104668110559659,
+      "auc": 0.5683094397380288,
+      "precision_at_40": 0.21000000000000002,
+      "net_value_top_40": 51346.8,
+      "seconds": 1.7920000000000003
+    }
+  ]
+}

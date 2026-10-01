@@ -1,0 +1,36 @@
+{
+  "model_name": "kestrel-fraud-rf-asof",
+  "model_version": "1.0.0",
+  "feature_version": "2.0-asof",
+  "python_version": "3.13.15",
+  "dependencies": {
+    "pandas": "3.0.6",
+    "numpy": "2.5.3",
+    "scikit-learn": "1.9.1",
+    "pytest": "8.3.3"
+  },
+  "model_architecture": {
+    "algorithm": "RandomForestClassifier",
+    "n_estimators": 120,
+    "min_samples_leaf": 20,
+    "max_features": 0.7,
+    "class_weight": "balanced_subsample",
+    "random_state": 11
+  },
+  "data_hashes": {
+    "train_csv_sha256": "2490847a83be3e5613d206b4bd1e63b2a6e33887bbe101409013cf9cf02f2325",
+    "test_unlabelled_csv_sha256": "2cd7f445c9216b4aedb77e31d650485687fefe37a2d3b7add654f3b51125bfd5"
+  },
+  "training_timestamp": "2026-10-01T11:00:00Z",
+  "primary_validation_metrics": {
+    "evaluation_cutoff": "2026-03-28 16:23:12",
+    "primary_holdout_auc": 0.5226016918646508,
+    "primary_holdout_accuracy": 0.9784172661870504,
+    "primary_holdout_top40_precision": 0.125,
+    "primary_holdout_top40_frauds": 5,
+    "primary_holdout_net_value_inr": 21638.0,
+    "five_window_mean_auc": 0.5922613551589576,
+    "five_window_mean_accuracy": 0.9824956833759704,
+    "five_window_mean_net_value_inr": 71038.2
+  }
+}
